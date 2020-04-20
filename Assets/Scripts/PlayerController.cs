@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         var networkIdentity = GetComponent<Mirror.NetworkIdentity>();
+        var rb = GetComponent<Rigidbody>();
         if (!networkIdentity.hasAuthority)
         {
             return;
@@ -22,19 +23,19 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKey(KeyCode.W))
         {
-            transform.position += new Vector3(0, 0, 1);
+            rb.AddForce(new Vector3(0, 0, 50));
         }
         if (Input.GetKey(KeyCode.S))
         {
-            transform.position += new Vector3(0, 0, -1);
+            rb.AddForce(new Vector3(0, 0, -50));
         }
         if (Input.GetKey(KeyCode.A))
         {
-            transform.position += new Vector3(-1, 0, 0);
+            rb.AddForce(new Vector3(-50, 0, 0));
         }
         if (Input.GetKey(KeyCode.D))
         {
-            transform.position += new Vector3(1, 0, 0);
+            rb.AddForce(new Vector3(50, 0, 0));
         }
     }
 }

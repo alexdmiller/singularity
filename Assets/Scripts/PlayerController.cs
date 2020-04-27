@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        transform.position += new Vector3(Random.Range(-4, 4), Random.Range(-4, 4), 0);
+        transform.position += new Vector3(Random.Range(-4, 4), -1, 0);
     }
 
     // Update is called once per frame
@@ -40,12 +40,12 @@ public class PlayerController : MonoBehaviour
             rb.AddForce(new Vector3(50, 0, 0));
         }
 
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
 
-            Instantiate(eggPrefab);
-            Debug.Log(transform.position.x + " " + transform.position.y + " " + transform.position.z);
-            eggPrefab.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+            GameObject newEgg = Instantiate(eggPrefab);
+            NetworkServer.Spawn(newEgg);
+            newEgg.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
         }
     }
 }

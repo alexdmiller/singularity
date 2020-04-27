@@ -5,6 +5,9 @@ using Mirror;
 
 public class PlayerController : NetworkBehaviour
 {
+
+    public float inputForce = 40f;
+
     public GameObject eggPrefab;
 
     // Start is called before the first frame update
@@ -14,7 +17,7 @@ public class PlayerController : NetworkBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         var networkIdentity = GetComponent<Mirror.NetworkIdentity>();
         var rb = GetComponent<Rigidbody>();
@@ -25,19 +28,19 @@ public class PlayerController : NetworkBehaviour
 
         if (Input.GetKey(KeyCode.W))
         {
-            rb.AddForce(new Vector3(0, 0, 50));
+            rb.AddForce(new Vector3(0, 0, inputForce));
         }
         if (Input.GetKey(KeyCode.S))
         {
-            rb.AddForce(new Vector3(0, 0, -50));
+            rb.AddForce(new Vector3(0, 0, -inputForce));
         }
         if (Input.GetKey(KeyCode.A))
         {
-            rb.AddForce(new Vector3(-50, 0, 0));
+            rb.AddForce(new Vector3(-inputForce, 0, 0));
         }
         if (Input.GetKey(KeyCode.D))
         {
-            rb.AddForce(new Vector3(50, 0, 0));
+            rb.AddForce(new Vector3(inputForce, 0, 0));
         }
 
         if (Input.GetKeyDown(KeyCode.Space))

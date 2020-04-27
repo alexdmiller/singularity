@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : NetworkBehaviour
 {
     public GameObject eggPrefab;
 
@@ -42,10 +42,16 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-
-            GameObject newEgg = Instantiate(eggPrefab);
-            NetworkServer.Spawn(newEgg);
-            newEgg.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+            CmdSpawnEgg();
         }
     }
+
+    [Command]
+    void CmdSpawnEgg()
+    {
+        GameObject newEgg = Instantiate(eggPrefab);
+        newEgg.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+        NetworkServer.Spawn(newEgg);
+    }
+
 }

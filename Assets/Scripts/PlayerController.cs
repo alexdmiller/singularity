@@ -14,6 +14,12 @@ public class PlayerController : NetworkBehaviour
     void Start()
     {
         transform.position += new Vector3(Random.Range(-4, 4), -1, 0);
+
+        if (!isLocalPlayer)
+        {
+            var rb = GetComponent<Rigidbody>();
+            rb.isKinematic = false;
+        }
     }
 
     // Update is called once per frame

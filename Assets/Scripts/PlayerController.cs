@@ -7,6 +7,11 @@ public class PlayerController : NetworkBehaviour
 {
 
     public float inputForce = 40f;
+    public float jumpForce = 500f;
+    public float distToGround;
+    public float epsilon = 0.1f;
+    public float minHeightScale = 0.2f;
+    public float maxHeightScale = 20f;
 
     public GameObject eggPrefab;
 
@@ -20,9 +25,16 @@ public class PlayerController : NetworkBehaviour
             var rb = GetComponent<Rigidbody>();
             rb.isKinematic = false;
         }
+
+        distToGround = GetComponent<Collider>().bounds.extents.y;
     }
 
-    // Update is called once per frame
+    bool IsGrounded()
+    {
+        return Physics.Raycast(transform.position, -Vector3.up, distToGround + 0.1f);
+    }
+
+    // FixedUpdate is called whenever physics is called (fixed timesteps)
     void FixedUpdate()
     {
         var networkIdentity = GetComponent<Mirror.NetworkIdentity>();
@@ -49,18 +61,34 @@ public class PlayerController : NetworkBehaviour
             rb.AddForce(new Vector3(inputForce, 0, 0));
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && IsGrounded())
         {
-            CmdSpawnEgg();
+            rb.AddForce(new Vector3(0, jumpForce, 0));
         }
+
+        if (Input.GetKey(KeyCode.R))
+        {
+            var curScale = transform.localScale;
+            transform.localScale = new Vector3(
+                curScale.x, Mathf.Min(maxHeightScale, curScale.y + 0.3f), curScale.z);
+            distToGround = GetComponent<Collider>().bounds.extents.y;
+        }
+        else if (Input.GetKey(KeyCode.F))
+        {
+            var curScale = transform.localScale;
+            transform.localScale = new Vector3(
+                curScale.x, Mathf.Max(minHeightScale, curScale.y - 0.5f), curScale.z);
+            distToGround = GetComponent<Collider>().bounds.extents.y;
+        }
+
     }
 
-    [Command]
-    void CmdSpawnEgg()
-    {
-        GameObject newEgg = Instantiate(eggPrefab);
-        newEgg.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
-        NetworkServer.Spawn(newEgg);
-    }
+    // [Command]
+    // void CmdSpawnEgg()
+    // {
+    //     GameObject newEgg = Instantiate(eggPrefab);
+    //     newEgg.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+    //     NetworkServer.Spawn(newEgg);
+    // }
 
 }

@@ -16,9 +16,10 @@ GameObject:
   - component: {fileID: 3483219992400831207}
   - component: {fileID: 3550282049094319012}
   - component: {fileID: 2990911798347705456}
+  - component: {fileID: 8999153549786320952}
   m_Layer: 0
   m_Name: Cubemax
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -112,6 +113,11 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   inputForce: 40
+  jumpForce: 1000
+  distToGround: 0
+  epsilon: 0.1
+  minHeightScale: 0.2
+  maxHeightScale: 20
   eggPrefab: {fileID: 2662394371561838200, guid: fb1ea38b53fac46dcb4ffc8ac599ff3b,
     type: 3}
 --- !u!114 &3483219992400831207
@@ -163,3 +169,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &8999153549786320952
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5691184757578352428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ab68c7fff3ec47a0adf8e8de5706418, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  option1: {r: 0.018987417, g: 1, b: 0, a: 0}
+  option2: {r: 0, g: 0.66610146, b: 1, a: 0}

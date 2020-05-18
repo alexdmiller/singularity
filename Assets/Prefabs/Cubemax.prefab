@@ -112,8 +112,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  inputForce: 40
-  jumpForce: 1000
+  inputForce: 25
+  jumpForce: 250
   distToGround: 0
   epsilon: 0.1
   minHeightScale: 0.2

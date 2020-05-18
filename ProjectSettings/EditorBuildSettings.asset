@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/GrowPuzzle1.unity
+    guid: c4a0c52f297fd4926b9ec370a2d78fb6
   m_configObjects: {}
